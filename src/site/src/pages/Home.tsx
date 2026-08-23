@@ -5,8 +5,7 @@ const FEED_URL = '/feed.xml'
 
 export default function Home() {
   const featured = news[0]
-  // 仅一篇时：头条与「最新新闻」都展示该篇，避免列表空洞；多篇时列表展示其余
-  const rest = news.length > 1 ? news.slice(1, 6) : news
+  const rest = news.slice(1)
   const total = news.length
 
   return (
@@ -19,11 +18,18 @@ export default function Home() {
         </p>
       </section>
 
-      {featured && (
-        <section className="section">
+      <section className="section">
+        <div className="section-head">
+          <h2 className="section-title">最新新闻</h2>
+          {total > 5 && (
+            <Link to="/news" className="section-more">全部 {total} 篇 &rarr;</Link>
+          )}
+        </div>
+
+        {featured && (
           <article className="featured">
             <div className="featured-meta">
-              <span className="tag">头条</span>
+              <span className="tag">最新</span>
               <span className="featured-date">{featured.date}</span>
             </div>
             <Link to={`/news/${featured.slug}`} className="featured-title">
@@ -34,19 +40,11 @@ export default function Home() {
               阅读全文 &rarr;
             </Link>
           </article>
-        </section>
-      )}
+        )}
 
-      <section className="section">
-        <div className="section-head">
-          <h2 className="section-title">最新新闻</h2>
-          <Link to="/news" className="section-more">全部 {total} 篇 &rarr;</Link>
-        </div>
-        <div className="news-list">
-          {rest.length === 0 ? (
-            <p className="empty">暂无更多新闻</p>
-          ) : (
-            rest.map(post => (
+        {rest.length > 0 && (
+          <div className="news-list">
+            {rest.map(post => (
               <article className="news-item" key={post.slug}>
                 <div className="news-meta">
                   <span className="news-date">{post.date}</span>
@@ -56,9 +54,9 @@ export default function Home() {
                 </Link>
                 <p className="news-summary">{post.summary}</p>
               </article>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="section">
