@@ -1,15 +1,11 @@
 import { Link, useParams } from 'react-router-dom'
+import { marked } from 'marked'
 import { getNews } from '../data/news'
 
-function renderParagraphs(paragraphs: string[]) {
-  return paragraphs.map((para, i) => (
-    <p key={i}>
-      {para.split('\n').flatMap((line, j) =>
-        j === 0 ? [line] : [<br key={`br-${i}-${j}`} />, line]
-      )}
-    </p>
-  ))
-}
+marked.setOptions({
+  gfm: true,
+  breaks: true,
+})
 
 export default function NewsDetail() {
   const { slug } = useParams<{ slug: string }>()
@@ -18,21 +14,32 @@ export default function NewsDetail() {
   if (!post) {
     return (
       <div className="page news-detail">
-        <Link to="/news" className="back-link">&larr; 新闻</Link>
+        <Link to="/news" className="back-link">&larr; 返回新闻</Link>
         <p className="empty">新闻不存在</p>
       </div>
     )
   }
 
+  const html = marked.parse(post.paragraphs.join('\n\n'))
+
   return (
     <div className="page news-detail">
-      <Link to="/news" className="back-link">&larr; 新闻</Link>
+      <Link to="/news" className="back-link">&larr; 返回新闻</Link>
       <article className="article">
         <header className="article-header">
           <h1 className="article-title">{post.title}</h1>
-          <p className="article-date">{post.date}</p>
+          <div className="article-meta">
+            <span className="article-date">{post.date}</span>
+            <span className="article-tag">新闻</span>
+          </div>
         </header>
-        <div className="article-body">{renderParagraphs(post.paragraphs)}</div>
+        <div
+          className="article-body"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        <footer className="article-footer">
+          <Link to="/news" className="back-link">&larr; 返回全部新闻</Link>
+        </footer>
       </article>
     </div>
   )

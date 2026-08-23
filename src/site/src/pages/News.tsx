@@ -3,26 +3,30 @@ import { news } from '../data/news'
 
 export default function News() {
   return (
-    <div className="page news">
+    <div className="page news page-news">
       <section className="hero">
-        <h1 className="hero-tagline">全部新闻</h1>
+        <span className="hero-kicker">ALL STORIES</span>
+        <h1 className="hero-title">新闻</h1>
+        <p className="hero-sub">量潮媒体中心的全部新闻，按时间倒序排列。</p>
       </section>
 
-      <section className="section">
+      <div className="news-list">
         {news.length === 0 ? (
           <p className="empty">暂无新闻</p>
         ) : (
           news.map(post => (
-            <div className="news-item" key={post.slug}>
-              <span className="news-date">{post.date}</span>
+            <article className="news-item" key={post.slug}>
+              <div className="news-meta">
+                <span className="news-date">{post.date}</span>
+              </div>
               <Link to={`/news/${post.slug}`} className="news-title">
                 {post.title}
               </Link>
               <p className="news-summary">{post.summary}</p>
-            </div>
+            </article>
           ))
         )}
-      </section>
+      </div>
     </div>
   )
 }
