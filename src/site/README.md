@@ -6,7 +6,7 @@
 
 ## 内容目录
 
-新闻以 Markdown 存放于 `src/content/news/`，文件命名约定：`YYYY-MM-DD-slug.md`，格式：
+新闻以 Markdown 存放于 `data/news/`，文件命名约定：`YYYY-MM-DD-slug.md`，格式：
 
 ```markdown
 # 标题

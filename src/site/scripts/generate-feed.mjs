@@ -1,11 +1,11 @@
-// 构建脚本：扫描 src/content/news/*.md，生成 dist/feed.xml（RSS 2.0）与 dist/sitemap.xml
+// 构建脚本：扫描仓库根 data/news/*.md，生成 dist/feed.xml（RSS 2.0）与 dist/sitemap.xml
 // 在 vite build 之后运行：写入 dist/ 下的静态产物
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const CONTENT_DIR = join(__dirname, '..', 'src', 'content', 'news')
+const CONTENT_DIR = join(__dirname, '..', '..', '..', 'data', 'news')
 const DIST_DIR = join(__dirname, '..', 'dist')
 
 const SITE_URL = process.env.SITE_URL ?? 'https://media.quanttide.com'

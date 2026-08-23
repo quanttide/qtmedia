@@ -1,4 +1,4 @@
-// 新闻数据层：扫描 src/content/news/*.md 构建新闻列表
+// 新闻数据层：扫描仓库根 data/news/*.md 构建新闻列表
 // 文件约定：YYYY-MM-DD-slug.md；首行 # 标题；首个段落为摘要
 export interface NewsPost {
   slug: string;
@@ -9,7 +9,7 @@ export interface NewsPost {
   paragraphs: string[];
 }
 
-const modules = import.meta.glob('/src/content/news/*.md', {
+const modules = import.meta.glob('../../data/news/*.md', {
   query: '?raw',
   import: 'default',
   eager: true,
