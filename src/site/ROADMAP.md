@@ -11,7 +11,7 @@
 - 首页：Hero + 最新新闻 + 订阅（RSS）+ 联系
 - 新闻列表 `/news`：时间倒序
 - 新闻详情 `/news/:slug`：Markdown 正文段落渲染
-- 内容管线：`data/news/*.md`（`YYYY-MM-DD-slug.md` 约定）→ 构建脚本生成 `feed.xml` + `sitemap.xml`
+- 内容管线：`src/content/news/*.md`（`YYYY-MM-DD-slug.md` 约定）→ 构建脚本生成 `feed.xml` + `sitemap.xml`
 - 设计文档：`docs/index.md`
 
 ---
@@ -22,7 +22,7 @@
 |------|------|
 | 内容规范 | 新闻写作规范（标题 / 摘要 / 正文长度 / 引用体例） |
 | 发布流程 | 新闻入库 → 提交 → 构建 → 部署（git 即内容管理） |
-| 栏目标签 | `data/news/` 增加栏目元数据，首页/列表按栏目筛选 |
+| 栏目标签 | `src/content/news/` 增加栏目元数据，首页/列表按栏目筛选 |
 
 ## 阶段 2：分发增强
 
