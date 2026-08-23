@@ -1,43 +1,47 @@
 # ROADMAP
 
-量潮媒体中心（qtmedia）。
+量潮媒体中心（qtmedia）——独立新闻网站。
 
 ## 目标
 
-实现 `docs/index.md` 的设计：媒体中心——统一展示量潮在各媒体平台的账号矩阵与内容动态，是新媒体运营领域对外的窗口。核心问题：**量潮的媒体矩阵在哪、在说什么、怎么找到我们？**
+实现 `docs/index.md` 的设计：量潮的独立新闻网站——脱离新媒体平台绑定，拥有自主内容与独立分发能力（RSS / SEO / 第一方域名）。
 
 ## 当前状态
 
-- 首页：Hero + 媒体矩阵 + 联系
-- 数据：`data/platforms.ts` 媒体平台静态清单（条目待补充）
+- 首页：Hero + 最新新闻 + 订阅（RSS）+ 联系
+- 新闻列表 `/news`：时间倒序
+- 新闻详情 `/news/:slug`：Markdown 正文段落渲染
+- 内容管线：`src/content/news/*.md`（`YYYY-MM-DD-slug.md` 约定）→ 构建脚本生成 `feed.xml` + `sitemap.xml`
 - 设计文档：`docs/index.md`
 
 ---
 
-## 阶段 1：数据层补齐
+## 阶段 1：内容生产
 
 | 任务 | 说明 |
 |------|------|
-| 平台清单 | 补充各平台账号条目（平台 / 账号名 / 链接 / 定位） |
-| 内容动态 | 从 `data/journal/` 与 `data/archive/` 生成内容动态流 |
+| 内容规范 | 新闻写作规范（标题 / 摘要 / 正文长度 / 引用体例） |
+| 发布流程 | 新闻入库 → 提交 → 构建 → 部署（git 即内容管理） |
+| 栏目标签 | `src/content/news/` 增加栏目元数据，首页/列表按栏目筛选 |
 
-## 阶段 2：内容展示
+## 阶段 2：分发增强
 
 | 任务 | 说明 |
 |------|------|
-| 内容列表 | 首页展示近期内容动态（文章 / 视频 / 动态），附链接到原文 |
-| 平台页 | 按平台浏览内容，支持按类型筛选 |
+| 订阅完善 | Atom / JSON Feed 补充；订阅页说明 |
+| 分享链接 | 每篇新闻生成固定 URL 与分享文案 |
+| 邮件订阅 | Newsletter 订阅入口（后端接入） |
 
 ## 阶段 3：部署
 
 | 任务 | 说明 |
 |------|------|
-| 部署工作流 | `deploy-site.yml`：`site/*` tag → Vite build → OSS → CDN（media.quanttide.com） |
-| 基础设施 | OSS 桶、CDN 域名、DNS CNAME，HTTPS 泛域名证书 |
+| 部署工作流 | `deploy-site.yml`：`site/*` tag → Vite build（含 feed/sitemap）→ OSS → CDN（media.quanttide.com），HTTPS 泛域名证书 |
+| 基础设施 | OSS 桶 qtmedia-site、CDN 域名、DNS CNAME 已配置；组织级 ALIYUN secrets 供 Actions 使用 |
 
 ## 验收与发布
 
-- 每阶段完成后运行 `npm run build` 验证
+- 每阶段完成后运行 `npm run build` 验证（含 feed/sitemap 生成）
 - 全部完成后打 `site/v0.1.0` tag 并更新 `src/site/CHANGELOG.md`
 
 ## 风格约束
