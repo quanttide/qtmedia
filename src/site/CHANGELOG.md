@@ -9,9 +9,10 @@
 - 首页：Hero + 最新新闻 + 订阅（RSS）+ 联系
 - 新闻列表 `/news`：时间倒序
 - 新闻详情 `/news/:slug`：Markdown 正文段落渲染
-- 内容管线：`content/news/*.md` → 构建脚本生成 `feed.xml` + `sitemap.xml`
+- 内容管线：`data/news/*.md` → 构建脚本生成 `feed.xml` + `sitemap.xml`
 - 设计文档 `docs/index.md`（新闻站定位与独立性原则）
 
 ### 变更
 
 - 移除媒体矩阵展示（`data/platforms.ts`），改为新闻站定位
+- 新闻内容目录定为 `src/site/data/news/`：内容与代码数据分离（`src/site/src/data/` 为代码），glob 使用根锚定 `/data/news/*.md`——对 CI 与本地一致友好

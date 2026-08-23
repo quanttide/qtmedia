@@ -6,13 +6,13 @@
 
 核心问题只有一个：**量潮在发生什么、说了什么？**
 
-设计输入：`src/content/news/`（新闻源）、`data/journal/`（运营日志）。
+设计输入：`data/news/`（新闻源）、`data/journal/`（运营日志）。
 
 ## 独立性原则
 
 | 原则 | 说明 |
 |------|------|
-| 内容即文件 | 新闻以 Markdown 存于仓库 `src/content/news/`，git 即内容管理，可迁移到任何发布系统 |
+| 内容即文件 | 新闻以 Markdown 存于仓库 `data/news/`，git 即内容管理，可迁移到任何发布系统 |
 | 第一方渠道 | 自有域名 `media.quanttide.com` 发布，不依赖平台可达性 |
 | 订阅分发 | 构建时生成 `feed.xml`（RSS 2.0），任何阅读器可订阅 |
 | 搜索引擎收录 | 生成 `sitemap.xml`，内容可与平台内搜索解耦 |
@@ -57,9 +57,9 @@ GitHub / 邮件。
 ## 技术决策
 
 - React 19 + TypeScript + Vite（沿用领域惯例）
-- `src/content/news/` 目录约定：`YYYY-MM-DD-slug.md`，首行为 `# 标题`，其后正文；摘要取首个段落
+- `data/news/` 目录约定：`YYYY-MM-DD-slug.md`，首行为 `# 标题`，其后正文；摘要取首个段落
 - 正文不引入 Markdown 解析库：标题去除后按空行分段落，段内换行用 `<br>`（同 qtfounder 惯例）
-- 构建脚本 `scripts/generate-feed.mjs`：扫描 `src/content/news/` 生成 `dist/feed.xml` + `dist/sitemap.xml`
+- 构建脚本 `scripts/generate-feed.mjs`：扫描 `data/news/` 生成 `dist/feed.xml` + `dist/sitemap.xml`
 
 ## 风格约束
 
